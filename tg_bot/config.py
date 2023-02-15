@@ -12,7 +12,7 @@ class TgBot:
 
 
 @dataclass
-class DbConfig
+class DbConfig:
     host: str
     password: str
     user: str
