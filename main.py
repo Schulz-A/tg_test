@@ -7,6 +7,7 @@ from aiogram.utils import executor
 
 from tg_bot.config import load_config
 from tg_bot.filters.admin import AdminFilter
+from tg_bot.handlers.admin import register_admin
 from tg_bot.handlers.echo import register_echo
 
 logger = logging.getLogger(__name__)
@@ -21,6 +22,7 @@ def register_all_filters(dp):
 
 
 def register_all_handlers(dp):
+    register_admin(dp)
     register_echo(dp)
 
 

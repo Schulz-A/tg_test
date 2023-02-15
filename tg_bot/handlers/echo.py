@@ -1,4 +1,5 @@
 from aiogram import types, Dispatcher
+from aiogram.dispatcher.filters import CommandStart
 from aiogram.utils.markdown import hcode
 
 
@@ -22,5 +23,5 @@ async def bot_echo_all(message: types.Message, state):
 
 
 def register_echo(dp: Dispatcher):
-    dp.register_message_handler(bot_echo)
-    dp.register_message_handler(bot_echo_all, state="*", content_types=types.ContentTypes.ANY, is_admin=True)
+    dp.register_message_handler(bot_echo, CommandStart())
+    dp.register_message_handler(bot_echo_all, state="*", content_types=types.ContentTypes.ANY)
