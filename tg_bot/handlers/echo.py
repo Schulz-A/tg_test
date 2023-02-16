@@ -2,7 +2,10 @@ from aiogram import types, Dispatcher
 from aiogram.dispatcher.filters import CommandStart
 from aiogram.utils.markdown import hcode
 
+from tg_bot.misc.rate_limit_decor import rate_limit
 
+
+@rate_limit(5, key="start")
 async def bot_echo(message: types.Message):
     text = [
         "Echo without state.",
@@ -19,7 +22,7 @@ async def bot_echo_all(message: types.Message, state):
         "Message:",
         message.text
     ]
-    await message.answer("\n".join(*text))
+    await message.answer("\n".join(text))
 
 
 def register_echo(dp: Dispatcher):

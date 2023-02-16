@@ -9,12 +9,13 @@ from tg_bot.config import load_config
 from tg_bot.filters.admin import AdminFilter
 from tg_bot.handlers.admin import register_admin
 from tg_bot.handlers.echo import register_echo
+from tg_bot.middlewares.throttling import ThrottlingMiddleware
 
 logger = logging.getLogger(__name__)
 
 
-# def register_all_middlewares(dp):
-    # dp.setup_middleware(...)
+def register_all_middlewares(dp):
+    dp.setup_middleware(ThrottlingMiddleware())
 
 
 def register_all_filters(dp):
@@ -22,7 +23,7 @@ def register_all_filters(dp):
 
 
 def register_all_handlers(dp):
-    register_admin(dp)
+    # register_admin(dp)
     register_echo(dp)
 
 
@@ -40,7 +41,7 @@ async def main():
 
     dp = Dispatcher(bot, storage=storage)
 
-    # register_all_middlewares(dp)
+    register_all_middlewares(dp)
     register_all_filters(dp)
     register_all_handlers(dp)
 
