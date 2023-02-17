@@ -6,9 +6,10 @@ from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from aiogram.utils import executor
 
 from tg_bot.config import load_config
-from tg_bot.filters.admin import AdminFilter
+from tg_bot.filters.admin_filter import AdminFilter
 from tg_bot.handlers.admin import register_admin
 from tg_bot.handlers.echo import register_echo
+from tg_bot.handlers.test import register_test
 from tg_bot.middlewares.throttling import ThrottlingMiddleware
 
 logger = logging.getLogger(__name__)
@@ -25,6 +26,7 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     # register_admin(dp)
     register_echo(dp)
+    register_test(dp)
 
 
 async def main():
@@ -37,6 +39,7 @@ async def main():
     bot = Bot(token=config.tg_bot.token, parse_mode="HTML")
 
     storage = RedisStorage2() if config.tg_bot.use_redis else MemoryStorage()
+    logging.info(f"{storage.__class__}")
     bot["config"] = config
 
     dp = Dispatcher(bot, storage=storage)
