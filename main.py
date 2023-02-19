@@ -7,8 +7,10 @@ from aiogram.utils import executor
 
 from tg_bot.config import load_config
 from tg_bot.filters.admin_filter import AdminFilter
+from tg_bot.filters.triggers_filter import TriggerFilter
 from tg_bot.handlers.admin import register_admin
 from tg_bot.handlers.echo import register_echo
+from tg_bot.handlers.parse_message import register_parse_message
 from tg_bot.handlers.test import register_test
 from tg_bot.middlewares.throttling import ThrottlingMiddleware
 
@@ -21,12 +23,14 @@ def register_all_middlewares(dp):
 
 def register_all_filters(dp):
     dp.filters_factory.bind(AdminFilter)
+    dp.filters_factory.bind(TriggerFilter)
 
 
 def register_all_handlers(dp):
     # register_admin(dp)
-    register_echo(dp)
-    register_test(dp)
+    # register_echo(dp)
+    # register_test(dp)
+    register_parse_message(dp)
 
 
 async def main():

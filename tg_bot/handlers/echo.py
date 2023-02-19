@@ -1,3 +1,5 @@
+import logging
+
 from aiogram import types, Dispatcher
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Command, CommandStart
@@ -8,12 +10,13 @@ from tg_bot.misc.rate_limit_decor import rate_limit
 
 @rate_limit(5, key="start")
 async def start_command(message: types.Message, state: FSMContext):
+    logging.info(f"{message}")
     text = [
         "Echo without state.",
         "Message:",
         message.text
     ]
-    await message.answer("Enter whatever:")
+    await message.answer(f"Hi, {message.from_user.full_name}")
 
 
 async def bot_echo_all(message: types.Message, state: FSMContext):
