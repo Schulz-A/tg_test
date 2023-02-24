@@ -10,6 +10,6 @@ def timeout(sec, handler):
             await asyncio.sleep(sec)
             if current_state == await state.get_state():
                 await state.reset_state()
-                await handler(*args, state)
+                await handler(*args)
         return wrappers
     return decorator

@@ -13,6 +13,7 @@ from tg_bot.handlers.echo import register_echo
 from tg_bot.handlers.parse_message import register_parse_message
 from tg_bot.handlers.test import register_test
 from tg_bot.middlewares.throttling import ThrottlingMiddleware
+from tg_bot.models.postgresql import Database
 
 logger = logging.getLogger(__name__)
 
@@ -29,8 +30,8 @@ def register_all_filters(dp):
 def register_all_handlers(dp):
     # register_admin(dp)
     # register_echo(dp)
-    # register_test(dp)
-    register_parse_message(dp)
+    register_test(dp)
+    # register_parse_message(dp)
 
 
 async def main():
@@ -47,6 +48,7 @@ async def main():
     bot["config"] = config
 
     dp = Dispatcher(bot, storage=storage)
+    db = Database(config)
 
     register_all_middlewares(dp)
     register_all_filters(dp)
